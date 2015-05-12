@@ -62,6 +62,10 @@ along with GCC; see the file COPYING3.  If not see
 #include "df.h"
 #include "dbgcnt.h"
 
+#ifndef LOAD_EXTEND_OP
+#define LOAD_EXTEND_OP(M) UNKNOWN
+#endif
+
 static int reload_cse_noop_set_p (rtx);
 static bool reload_cse_simplify (rtx_insn *, rtx);
 static void reload_cse_regs_1 (void);
@@ -262,9 +266,7 @@ reload_cse_simplify_set (rtx set, rtx_insn *insn)
   int old_cost;
   cselib_val *val;
   struct elt_loc_list *l;
-#ifdef LOAD_EXTEND_OP
   enum rtx_code extend_op = UNKNOWN;
-#endif
   bool speed = optimize_bb_for_speed_p (BLOCK_FOR_INSN (insn));
 
   dreg = true_regnum (SET_DEST (set));
@@ -277,7 +279,6 @@ reload_cse_simplify_set (rtx set, rtx_insn *insn)
 
   dclass = REGNO_REG_CLASS (dreg);
 
-#ifdef LOAD_EXTEND_OP
   /* When replacing a memory with a register, we need to honor assumptions
      that combine made wrt the contents of sign bits.  We'll do this by
      generating an extend instruction instead of a reg->reg copy.  Thus
@@ -287,7 +288,6 @@ reload_cse_simplify_set (rtx set, rtx_insn *insn)
       && (extend_op = LOAD_EXTEND_OP (GET_MODE (src))) != UNKNOWN
       && !REG_P (SET_DEST (set)))
     return 0;
-#endif
 
   val = cselib_lookup (src, GET_MODE (SET_DEST (set)), 0, VOIDmode);
   if (! val)
@@ -309,7 +309,6 @@ reload_cse_simplify_set (rtx set, rtx_insn *insn)
 
       if (CONSTANT_P (this_rtx) && ! references_value_p (this_rtx, 0))
 	{
-#ifdef LOAD_EXTEND_OP
 	  if (extend_op != UNKNOWN)
 	    {
 	      wide_int result;
@@ -334,19 +333,17 @@ reload_cse_simplify_set (rtx set, rtx_insn *insn)
 		}
 	      this_rtx = immed_wide_int_const (result, word_mode);
 	    }
-#endif
+
 	  this_cost = set_src_cost (this_rtx, speed);
 	}
       else if (REG_P (this_rtx))
 	{
-#ifdef LOAD_EXTEND_OP
 	  if (extend_op != UNKNOWN)
 	    {
 	      this_rtx = gen_rtx_fmt_e (extend_op, word_mode, this_rtx);
 	      this_cost = set_src_cost (this_rtx, speed);
 	    }
 	  else
-#endif
 	    this_cost = register_move_cost (GET_MODE (this_rtx),
 					    REGNO_REG_CLASS (REGNO (this_rtx)),
 					    dclass);
@@ -361,7 +358,6 @@ reload_cse_simplify_set (rtx set, rtx_insn *insn)
 	      && REG_P (this_rtx)
 	      && !REG_P (SET_SRC (set))))
 	{
-#ifdef LOAD_EXTEND_OP
 	  if (GET_MODE_BITSIZE (GET_MODE (SET_DEST (set))) < BITS_PER_WORD
 	      && extend_op != UNKNOWN
 #ifdef CANNOT_CHANGE_MODE_CLASS
@@ -375,7 +371,6 @@ reload_cse_simplify_set (rtx set, rtx_insn *insn)
 	      ORIGINAL_REGNO (wide_dest) = ORIGINAL_REGNO (SET_DEST (set));
 	      validate_change (insn, &SET_DEST (set), wide_dest, 1);
 	    }
-#endif
 
 	  validate_unshare_change (insn, &SET_SRC (set), this_rtx, 1);
 	  old_cost = this_cost, did_change = 1;
@@ -447,7 +442,6 @@ reload_cse_simplify_operands (rtx_insn *insn, rtx testreg)
 	continue;
 
       op = recog_data.operand[i];
-#ifdef LOAD_EXTEND_OP
       if (MEM_P (op)
 	  && GET_MODE_BITSIZE (GET_MODE (op)) < BITS_PER_WORD
 	  && LOAD_EXTEND_OP (GET_MODE (op)) != UNKNOWN)
@@ -498,7 +492,7 @@ reload_cse_simplify_operands (rtx_insn *insn, rtx testreg)
 	       safe to optimize, but is it worth the trouble?  */
 	    continue;
 	}
-#endif /* LOAD_EXTEND_OP */
+
       if (side_effects_p (op))
 	continue;
       v = cselib_lookup (op, recog_data.operand_mode[i], 0, VOIDmode);
