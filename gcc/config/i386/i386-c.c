@@ -432,6 +432,12 @@ ix86_target_macros_internal (HOST_WIDE_INT isa_flag,
     def_or_undef (parse_in, "__PCOMMIT__");
   if (isa_flag & OPTION_MASK_ISA_CLWB)
     def_or_undef (parse_in, "__CLWB__");
+
+  if (TARGET_IAMCU)
+    {
+      def_or_undef (parse_in, "__iamcu");
+      def_or_undef (parse_in, "__iamcu__");
+    }
 }
 
 
