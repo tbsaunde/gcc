@@ -1042,24 +1042,18 @@ emit_stack_restore (enum save_level save_level, rtx sa)
   /* See if this machine has anything special to do for this kind of save.  */
   switch (save_level)
     {
-#ifdef HAVE_restore_stack_block
     case SAVE_BLOCK:
       if (HAVE_restore_stack_block)
 	fcn = gen_restore_stack_block;
       break;
-#endif
-#ifdef HAVE_restore_stack_function
     case SAVE_FUNCTION:
       if (HAVE_restore_stack_function)
 	fcn = gen_restore_stack_function;
       break;
-#endif
-#ifdef HAVE_restore_stack_nonlocal
     case SAVE_NONLOCAL:
       if (HAVE_restore_stack_nonlocal)
 	fcn = gen_restore_stack_nonlocal;
       break;
-#endif
     default:
       break;
     }

@@ -1554,6 +1554,36 @@ gen_save_stack_nonlocal (rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_restore_stack_block
+#define HAVE_restore_stack_block 0
+static inline rtx
+gen_restore_stack_block (rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
+#ifndef HAVE_restore_stack_function
+#define HAVE_restore_stack_function 0
+static inline rtx
+gen_restore_stack_function (rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
+#ifndef HAVE_restore_stack_nonlocal
+#define HAVE_restore_stack_nonlocal 0
+static inline rtx
+gen_restore_stack_nonlocal (rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
