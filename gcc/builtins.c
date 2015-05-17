@@ -1613,11 +1613,9 @@ expand_builtin_apply (rtx function, rtx arguments, rtx argsize)
   NO_DEFER_POP;
 
   /* Save the stack with nonlocal if available.  */
-#ifdef HAVE_save_stack_nonlocal
   if (HAVE_save_stack_nonlocal)
     emit_stack_save (SAVE_NONLOCAL, &old_stack_level);
   else
-#endif
     emit_stack_save (SAVE_BLOCK, &old_stack_level);
 
   /* Allocate a block of memory onto the stack and copy the memory
@@ -1733,11 +1731,9 @@ expand_builtin_apply (rtx function, rtx arguments, rtx argsize)
   add_function_usage_to (call_insn, call_fusage);
 
   /* Restore the stack.  */
-#ifdef HAVE_save_stack_nonlocal
   if (HAVE_save_stack_nonlocal)
     emit_stack_restore (SAVE_NONLOCAL, old_stack_level);
   else
-#endif
     emit_stack_restore (SAVE_BLOCK, old_stack_level);
   fixup_args_size_notes (call_insn, get_last_insn (), 0);
 

@@ -988,12 +988,10 @@ emit_stack_save (enum save_level save_level, rtx *psave)
       if (HAVE_save_stack_function)
 	fcn = gen_save_stack_function;
       break;
-#ifdef HAVE_save_stack_nonlocal
     case SAVE_NONLOCAL:
       if (HAVE_save_stack_nonlocal)
 	fcn = gen_save_stack_nonlocal;
       break;
-#endif
     default:
       break;
     }
