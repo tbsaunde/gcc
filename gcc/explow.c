@@ -980,18 +980,14 @@ emit_stack_save (enum save_level save_level, rtx *psave)
   /* See if this machine has anything special to do for this kind of save.  */
   switch (save_level)
     {
-#ifdef HAVE_save_stack_block
     case SAVE_BLOCK:
       if (HAVE_save_stack_block)
 	fcn = gen_save_stack_block;
       break;
-#endif
-#ifdef HAVE_save_stack_function
     case SAVE_FUNCTION:
       if (HAVE_save_stack_function)
 	fcn = gen_save_stack_function;
       break;
-#endif
 #ifdef HAVE_save_stack_nonlocal
     case SAVE_NONLOCAL:
       if (HAVE_save_stack_nonlocal)
