@@ -1309,7 +1309,6 @@ allocate_dynamic_stack_space (rtx size, unsigned size_align,
 
       available_label = NULL;
 
-#ifdef HAVE_split_stack_space_check
       if (HAVE_split_stack_space_check)
 	{
 	  available_label = gen_label_rtx ();
@@ -1318,7 +1317,6 @@ allocate_dynamic_stack_space (rtx size, unsigned size_align,
 	     are SIZE bytes available on the stack.  */
 	  emit_insn (gen_split_stack_space_check (size, available_label));
 	}
-#endif
 
       /* The __morestack_allocate_stack_space function will allocate
 	 memory using malloc.  If the alignment of the memory returned

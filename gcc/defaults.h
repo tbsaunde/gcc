@@ -1584,6 +1584,16 @@ gen_restore_stack_nonlocal (rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_split_stack_space_check
+#define HAVE_split_stack_space_check 0
+static inline rtx
+gen_split_stack_space_check (rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
