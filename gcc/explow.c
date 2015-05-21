@@ -1374,7 +1374,6 @@ allocate_dynamic_stack_space (rtx size, unsigned size_align,
   /* Perform the required allocation from the stack.  Some systems do
      this differently than simply incrementing/decrementing from the
      stack pointer, such as acquiring the space by calling malloc().  */
-#ifdef HAVE_allocate_stack
   if (HAVE_allocate_stack)
     {
       struct expand_operand ops[2];
@@ -1386,7 +1385,6 @@ allocate_dynamic_stack_space (rtx size, unsigned size_align,
       expand_insn (CODE_FOR_allocate_stack, 2, ops);
     }
   else
-#endif
     {
       int saved_stack_pointer_delta;
 

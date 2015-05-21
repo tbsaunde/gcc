@@ -1594,6 +1594,10 @@ gen_split_stack_space_check (rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_allocate_stack
+#define HAVE_allocate_stack 0
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
