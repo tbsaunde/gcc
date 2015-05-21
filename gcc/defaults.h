@@ -1608,6 +1608,26 @@ gen_trap ()
 }
 #endif
 
+#ifndef HAVE_probe_stack
+#define HAVE_probe_stack 0
+static inline rtx
+gen_probe_stack (rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
+#ifndef HAVE_probe_stack_address
+#define HAVE_probe_stack_address 0
+static inline rtx
+gen_probe_stack_address (rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
