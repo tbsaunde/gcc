@@ -4735,7 +4735,6 @@ expand_builtin_assume_aligned (tree exp, rtx target)
 void
 expand_builtin_trap (void)
 {
-#ifdef HAVE_trap
   if (HAVE_trap)
     {
       rtx_insn *insn = emit_insn (gen_trap ());
@@ -4746,7 +4745,6 @@ expand_builtin_trap (void)
 	add_reg_note (insn, REG_ARGS_SIZE, GEN_INT (stack_pointer_delta));
     }
   else
-#endif
     emit_library_call (abort_libfunc, LCT_NORETURN, VOIDmode, 0);
   emit_barrier ();
 }

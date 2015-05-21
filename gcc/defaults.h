@@ -1598,6 +1598,16 @@ gen_split_stack_space_check (rtx, rtx)
 #define HAVE_allocate_stack 0
 #endif
 
+#ifndef HAVE_trap
+#define HAVE_trap 0
+static inline rtx
+gen_trap ()
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
