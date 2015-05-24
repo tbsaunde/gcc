@@ -1628,6 +1628,16 @@ gen_probe_stack_address (rtx)
 }
 #endif
 
+#ifndef HAVE_untyped_call
+#define HAVE_untyped_call 0
+static inline rtx
+gen_untyped_call (rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
