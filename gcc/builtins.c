@@ -869,10 +869,8 @@ expand_builtin_setjmp_setup (rtx buf_addr, rtx receiver_label)
   emit_stack_save (SAVE_NONLOCAL, &stack_save);
 
   /* If there is further processing to do, do it.  */
-#ifdef HAVE_builtin_setjmp_setup
   if (HAVE_builtin_setjmp_setup)
     emit_insn (gen_builtin_setjmp_setup (buf_addr));
-#endif
 
   /* We have a nonlocal label.   */
   cfun->has_nonlocal_label = 1;

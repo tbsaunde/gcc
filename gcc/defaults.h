@@ -1638,6 +1638,16 @@ gen_untyped_call (rtx, rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_builtin_setjmp_setup
+#define HAVE_builtin_setjmp_setup 0
+static inline rtx
+gen_builtin_setjmp_setup (rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
