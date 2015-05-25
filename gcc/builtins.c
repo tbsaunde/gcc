@@ -950,11 +950,9 @@ expand_builtin_setjmp_receiver (rtx receiver_label ATTRIBUTE_UNUSED)
     }
 #endif
 
-#ifdef HAVE_builtin_setjmp_receiver
   if (receiver_label != NULL && HAVE_builtin_setjmp_receiver)
     emit_insn (gen_builtin_setjmp_receiver (receiver_label));
   else
-#endif
 #ifdef HAVE_nonlocal_goto_receiver
     if (HAVE_nonlocal_goto_receiver)
       emit_insn (gen_nonlocal_goto_receiver ());

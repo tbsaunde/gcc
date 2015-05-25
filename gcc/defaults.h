@@ -1648,6 +1648,16 @@ gen_builtin_setjmp_setup (rtx)
 }
 #endif
 
+#ifndef HAVE_builtin_setjmp_receiver
+#define HAVE_builtin_setjmp_receiver 0
+static inline rtx
+gen_builtin_setjmp_receiver (rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
