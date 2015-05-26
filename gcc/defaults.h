@@ -1678,6 +1678,16 @@ gen_nonlocal_goto_receiver ()
 }
 #endif
 
+#ifndef HAVE_builtin_longjmp
+#define HAVE_builtin_longjmp 0
+static inline rtx
+gen_builtin_longjmp (rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */

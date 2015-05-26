@@ -988,11 +988,9 @@ expand_builtin_longjmp (rtx buf_addr, rtx value)
   gcc_assert (value == const1_rtx);
 
   last = get_last_insn ();
-#ifdef HAVE_builtin_longjmp
   if (HAVE_builtin_longjmp)
     emit_insn (gen_builtin_longjmp (buf_addr));
   else
-#endif
     {
       fp = gen_rtx_MEM (Pmode, buf_addr);
       lab = gen_rtx_MEM (Pmode, plus_constant (Pmode, buf_addr,
