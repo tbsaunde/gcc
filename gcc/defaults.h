@@ -1668,6 +1668,16 @@ gen_nonlocal_goto (rtx, rtx, rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_nonlocal_goto_receiver
+#define HAVE_nonlocal_goto_receiver 0
+static inline rtx
+gen_nonlocal_goto_receiver ()
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */

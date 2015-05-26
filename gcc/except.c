@@ -978,11 +978,9 @@ expand_dw2_landing_pad_for_region (eh_region region)
     emit_insn (gen_exception_receiver ());
   else
 #endif
-#ifdef HAVE_nonlocal_goto_receiver
   if (HAVE_nonlocal_goto_receiver)
     emit_insn (gen_nonlocal_goto_receiver ());
   else
-#endif
     { /* Nothing */ }
 
   if (region->exc_ptr_reg)
