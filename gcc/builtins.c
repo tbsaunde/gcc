@@ -897,9 +897,7 @@ expand_builtin_setjmp_receiver (rtx receiver_label ATTRIBUTE_UNUSED)
 
   /* Now put in the code to restore the frame pointer, and argument
      pointer, if needed.  */
-#ifdef HAVE_nonlocal_goto
   if (! HAVE_nonlocal_goto)
-#endif
     {
       /* First adjust our frame pointer to its actual value.  It was
 	 previously set to the start of the virtual area corresponding to
@@ -1013,14 +1011,12 @@ expand_builtin_longjmp (rtx buf_addr, rtx value)
 
       /* Pick up FP, label, and SP from the block and jump.  This code is
 	 from expand_goto in stmt.c; see there for detailed comments.  */
-#ifdef HAVE_nonlocal_goto
       if (HAVE_nonlocal_goto)
 	/* We have to pass a value to the nonlocal_goto pattern that will
 	   get copied into the static_chain pointer, but it does not matter
 	   what that value is, because builtin_setjmp does not use it.  */
 	emit_insn (gen_nonlocal_goto (value, lab, stack, fp));
       else
-#endif
 	{
 	  lab = copy_to_reg (lab);
 
@@ -1142,12 +1138,10 @@ expand_builtin_nonlocal_goto (tree exp)
 
   crtl->has_nonlocal_goto = 1;
 
-#ifdef HAVE_nonlocal_goto
   /* ??? We no longer need to pass the static chain value, afaik.  */
   if (HAVE_nonlocal_goto)
     emit_insn (gen_nonlocal_goto (const0_rtx, r_label, r_sp, r_fp));
   else
-#endif
     {
       r_label = copy_to_reg (r_label);
 

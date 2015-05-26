@@ -1658,6 +1658,16 @@ gen_builtin_setjmp_receiver (rtx)
 }
 #endif
 
+#ifndef HAVE_nonlocal_goto
+#define HAVE_nonlocal_goto 0
+static inline rtx
+gen_nonlocal_goto (rtx, rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
