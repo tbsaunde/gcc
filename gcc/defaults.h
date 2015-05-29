@@ -1688,6 +1688,16 @@ gen_builtin_longjmp (rtx)
 }
 #endif
 
+#ifndef HAVE_untyped_return
+#define HAVE_untyped_return 0
+static inline rtx
+gen_untyped_return (rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */

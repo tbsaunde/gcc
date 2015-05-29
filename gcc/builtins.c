@@ -1737,14 +1737,12 @@ expand_builtin_return (rtx result)
   apply_result_size ();
   result = gen_rtx_MEM (BLKmode, result);
 
-#ifdef HAVE_untyped_return
   if (HAVE_untyped_return)
     {
       emit_jump_insn (gen_untyped_return (result, result_vector (0, result)));
       emit_barrier ();
       return;
     }
-#endif
 
   /* Restore the return value and note that each value is used.  */
   size = 0;
