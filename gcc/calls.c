@@ -308,9 +308,7 @@ emit_call_1 (rtx funexp, tree fntree ATTRIBUTE_UNUSED, tree fndecl ATTRIBUTE_UNU
   HOST_WIDE_INT n_popped
     = targetm.calls.return_pops_args (fndecl, funtype, stack_size);
 
-#ifdef CALL_POPS_ARGS
   n_popped += CALL_POPS_ARGS (*get_cumulative_args (args_so_far));
-#endif
 
   /* Ensure address is valid.  SYMBOL_REF is already valid, so no need,
      and we don't want to load it into a register as an optimization,
