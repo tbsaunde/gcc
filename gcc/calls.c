@@ -340,7 +340,6 @@ emit_call_1 (rtx funexp, tree fntree ATTRIBUTE_UNUSED, tree fndecl ATTRIBUTE_UNU
   else if (fntree)
     set_mem_expr (funmem, build_simple_mem_ref (CALL_EXPR_FN (fntree)));
 
-#if defined (HAVE_sibcall_pop) && defined (HAVE_sibcall_value_pop)
   if ((ecf_flags & ECF_SIBCALL)
       && HAVE_sibcall_pop && HAVE_sibcall_value_pop
       && (n_popped > 0 || stack_size == 0))
@@ -362,7 +361,6 @@ emit_call_1 (rtx funexp, tree fntree ATTRIBUTE_UNUSED, tree fndecl ATTRIBUTE_UNU
       already_popped = 1;
     }
   else
-#endif
 
 #if defined (HAVE_call_pop) && defined (HAVE_call_value_pop)
   /* If the target has "call" or "call_value" insns, then prefer them

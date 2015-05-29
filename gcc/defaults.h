@@ -1702,6 +1702,22 @@ gen_untyped_return (rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_sibcall_value_pop
+#define HAVE_sibcall_value_pop 0
+#define GEN_SIBCALL_VALUE_POP(a, b, c, d, e) NULL
+#endif
+
+#ifndef HAVE_sibcall_pop
+#define HAVE_sibcall_pop 0
+#define GEN_SIBCALL_POP gen_sibcall_pop
+static inline rtx
+gen_sibcall_pop (rtx, rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */
