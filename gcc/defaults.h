@@ -1718,6 +1718,49 @@ gen_sibcall_pop (rtx, rtx, rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_call_value_pop
+#define HAVE_call_value_pop 0
+#define GEN_CALL_VALUE_POP gen_call_value_pop
+static inline rtx
+gen_call_value_pop (rtx, rtx, rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
+#ifndef HAVE_call_pop
+#define HAVE_call_pop 0
+#define GEN_CALL_POP gen_call_pop
+static inline rtx
+gen_call_pop (rtx, rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
+#ifndef HAVE_sibcall
+#define HAVE_sibcall 0
+#define GEN_SIBCALL gen_sibcall
+static inline rtx
+gen_sibcall (rtx, rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
+#ifndef HAVE_sibcall_value
+#define GEN_SIBCALL_VALUE gen_sibcall_value
+static inline rtx
+gen_sibcall_value (rtx, rtx, rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */

@@ -362,7 +362,6 @@ emit_call_1 (rtx funexp, tree fntree ATTRIBUTE_UNUSED, tree fndecl ATTRIBUTE_UNU
     }
   else
 
-#if defined (HAVE_call_pop) && defined (HAVE_call_value_pop)
   /* If the target has "call" or "call_value" insns, then prefer them
      if no arguments are actually popped.  If the target does not have
      "call" or "call_value" insns, then we must use the popping versions
@@ -391,9 +390,7 @@ emit_call_1 (rtx funexp, tree fntree ATTRIBUTE_UNUSED, tree fndecl ATTRIBUTE_UNU
       already_popped = 1;
     }
   else
-#endif
 
-#if defined (HAVE_sibcall) && defined (HAVE_sibcall_value)
   if ((ecf_flags & ECF_SIBCALL)
       && HAVE_sibcall && HAVE_sibcall_value)
     {
@@ -407,7 +404,6 @@ emit_call_1 (rtx funexp, tree fntree ATTRIBUTE_UNUSED, tree fndecl ATTRIBUTE_UNU
 				     GEN_INT (struct_value_size)));
     }
   else
-#endif
 
 #if defined (HAVE_call) && defined (HAVE_call_value)
   if (HAVE_call && HAVE_call_value)
