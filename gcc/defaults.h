@@ -1761,6 +1761,16 @@ gen_sibcall_value (rtx, rtx, rtx, rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_sibcall_epilogue
+#define HAVE_sibcall_epilogue 0
+static inline rtx
+gen_sibcall_epilogue ()
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 
 #endif  /* ! GCC_DEFAULTS_H */

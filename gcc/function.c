@@ -6127,10 +6127,9 @@ epilogue_done:
     convert_to_simple_return (entry_edge, orig_entry_edge, bb_flags,
 			      returnjump, unconverted_simple_returns);
 
-#ifdef HAVE_sibcall_epilogue
   /* Emit sibling epilogues before any sibling call sites.  */
-  for (ei = ei_start (EXIT_BLOCK_PTR_FOR_FN (cfun)->preds); (e =
-							     ei_safe_edge (ei));
+  for (ei = ei_start (EXIT_BLOCK_PTR_FOR_FN (cfun)->preds); HAVE_sibcall_epilogue
+       && (e = ei_safe_edge (ei));
 							     )
     {
       basic_block bb = e->src;
@@ -6165,7 +6164,6 @@ epilogue_done:
 	}
       ei_next (&ei);
     }
-#endif
 
   if (epilogue_end)
     {
@@ -6199,8 +6197,8 @@ epilogue_done:
 void
 reposition_prologue_and_epilogue_notes (void)
 {
-#if ! defined (HAVE_prologue) && ! defined (HAVE_sibcall_epilogue)
-  if (!HAVE_epilogue)
+#if ! defined (HAVE_prologue)
+  if (!HAVE_epilogue && !HAVE_sibcall_epilogue)
     return;
 #endif
 

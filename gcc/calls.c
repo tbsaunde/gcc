@@ -2735,12 +2735,7 @@ expand_call (tree exp, rtx target, int ignore)
     try_tail_call = 0;
 
   /*  Rest of purposes for tail call optimizations to fail.  */
-  if (
-#ifdef HAVE_sibcall_epilogue
-      !HAVE_sibcall_epilogue
-#else
-      1
-#endif
+  if (!HAVE_sibcall_epilogue
       || !try_tail_call
       /* Doing sibling call optimization needs some work, since
 	 structure_value_addr can be allocated on the stack.

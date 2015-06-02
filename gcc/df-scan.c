@@ -58,9 +58,6 @@ typedef struct df_mw_hardreg *df_mw_hardreg_ptr;
 #ifndef HAVE_prologue
 #define HAVE_prologue 0
 #endif
-#ifndef HAVE_sibcall_epilogue
-#define HAVE_sibcall_epilogue 0
-#endif
 
 /* The set of hard registers in eliminables[i].from. */
 
