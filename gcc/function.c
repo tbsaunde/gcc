@@ -5901,9 +5901,6 @@ thread_prologue_and_epilogue_insns (void)
       && (lookup_attribute ("no_split_stack", DECL_ATTRIBUTES (cfun->decl))
 	  == NULL))
     {
-#ifndef HAVE_split_stack_prologue
-      gcc_unreachable ();
-#else
       gcc_assert (HAVE_split_stack_prologue);
 
       start_sequence ();
@@ -5913,7 +5910,6 @@ thread_prologue_and_epilogue_insns (void)
 
       record_insns (split_prologue_seq, NULL, &prologue_insn_hash);
       set_insn_locations (split_prologue_seq, prologue_location);
-#endif
     }
 
   prologue_seq = NULL;

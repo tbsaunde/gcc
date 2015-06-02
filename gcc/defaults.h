@@ -1781,5 +1781,15 @@ gen_stack_protect_test (rtx, rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_split_stack_prologue
+#define HAVE_split_stack_prologue 0
+static inline rtx
+gen_split_stack_prologue ()
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
