@@ -1771,6 +1771,15 @@ gen_sibcall_epilogue ()
 }
 #endif
 
-#endif /* GCC_INSN_FLAGS_H  */
+#ifndef HAVE_stack_protect_test
+# define HAVE_stack_protect_test		0
+static inline rtx
+gen_stack_protect_test (rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
 
+#endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
