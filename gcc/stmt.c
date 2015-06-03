@@ -782,10 +782,6 @@ dump_case_nodes (FILE *f, struct case_node *root,
   dump_case_nodes (f, root->right, indent_step, indent_level);
 }
 
-#ifndef HAVE_casesi
-#define HAVE_casesi 0
-#endif
-
 /* Return the smallest number of different values for which it is best to use a
    jump-table instead of a tree of conditional branches.  */
 

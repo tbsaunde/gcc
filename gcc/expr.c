@@ -11080,13 +11080,6 @@ do_store_flag (sepops ops, rtx target, machine_mode mode)
 }
 
 
-/* Stubs in case we haven't got a casesi insn.  */
-#ifndef HAVE_casesi
-# define HAVE_casesi 0
-# define gen_casesi(a, b, c, d, e) (0)
-# define CODE_FOR_casesi CODE_FOR_nothing
-#endif
-
 /* Attempt to generate a casesi instruction.  Returns 1 if successful,
    0 otherwise (i.e. if there is no casesi instruction).
 

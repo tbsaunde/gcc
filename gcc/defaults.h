@@ -1791,5 +1791,17 @@ gen_split_stack_prologue ()
 }
 #endif
 
+/* Stubs in case we haven't got a casesi insn.  */
+#ifndef HAVE_casesi
+# define HAVE_casesi 0
+# define CODE_FOR_casesi CODE_FOR_nothing
+static inline rtx
+gen_casesi (rtx, rtx, rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
