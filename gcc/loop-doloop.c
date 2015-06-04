@@ -81,7 +81,6 @@ along with GCC; see the file COPYING3.  If not see
    register cannot be used for anything else but doloop -- ??? detect these
    cases).  */
 
-#ifdef HAVE_doloop_end
 
 /* Return the loop termination condition for PATTERN or zero
    if it is not a decrement and branch jump insn.  */
@@ -768,5 +767,3 @@ doloop_optimize_loops (void)
   verify_loop_structure ();
 #endif
 }
-#endif /* HAVE_doloop_end */
-

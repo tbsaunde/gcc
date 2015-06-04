@@ -53,8 +53,6 @@ along with GCC; see the file COPYING3.  If not see
 #include "hw-doloop.h"
 #include "dumpfile.h"
 
-#ifdef HAVE_doloop_end
-
 /* Dump information collected in LOOPS.  */
 static void
 dump_hwloops (hwloop_info loops)
@@ -686,4 +684,3 @@ reorg_loops (bool do_reorder, struct hw_doloop_hooks *hooks)
   if (dump_file)
     print_rtl (dump_file, get_insns ());
 }
-#endif

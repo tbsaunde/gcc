@@ -1803,5 +1803,15 @@ gen_casesi (rtx, rtx, rtx, rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_doloop_end
+#define HAVE_doloop_end 0
+static inline rtx
+gen_doloop_end (rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */

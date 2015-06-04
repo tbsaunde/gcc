@@ -379,10 +379,7 @@ pass_loop2::gate (function *fun)
       && (flag_move_loop_invariants
 	  || flag_unswitch_loops
 	  || flag_unroll_loops
-#ifdef HAVE_doloop_end
-	  || (flag_branch_on_count_reg && HAVE_doloop_end)
-#endif
-      ))
+	  || (flag_branch_on_count_reg && HAVE_doloop_end)))
     return true;
   else
     {
@@ -646,20 +643,15 @@ public:
 bool
 pass_rtl_doloop::gate (function *)
 {
-#ifdef HAVE_doloop_end
   return (flag_branch_on_count_reg && HAVE_doloop_end);
-#else
-  return false;
-#endif
 }
 
 unsigned int
 pass_rtl_doloop::execute (function *fun ATTRIBUTE_UNUSED)
 {
-#ifdef HAVE_doloop_end
-  if (number_of_loops (fun) > 1)
+  if (HAVE_doloop_end && number_of_loops (fun) > 1)
     doloop_optimize_loops ();
-#endif
+
   return 0;
 }
 

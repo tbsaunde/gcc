@@ -365,7 +365,9 @@ ps_num_consecutive_stages (partial_schedule_ptr ps, int id)
 static rtx
 doloop_register_get (rtx_insn *head ATTRIBUTE_UNUSED, rtx_insn *tail ATTRIBUTE_UNUSED)
 {
-#ifdef HAVE_doloop_end
+if (!HAVE_doloop_end)
+  return NULL_RTX;
+
   rtx reg, condition;
   rtx_insn *insn, *first_insn_not_to_check;
 
@@ -407,9 +409,6 @@ doloop_register_get (rtx_insn *head ATTRIBUTE_UNUSED, rtx_insn *tail ATTRIBUTE_U
       }
 
   return reg;
-#else
-  return NULL_RTX;
-#endif
 }
 
 /* Check if COUNT_REG is set to a constant in the PRE_HEADER block, so
