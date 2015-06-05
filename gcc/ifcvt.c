@@ -62,9 +62,6 @@
 #include "shrink-wrap.h"
 #include "ifcvt.h"
 
-#ifndef HAVE_incscc
-#define HAVE_incscc 0
-#endif
 #ifndef HAVE_decscc
 #define HAVE_decscc 0
 #endif

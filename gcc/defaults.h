@@ -1827,5 +1827,9 @@ gen_doloop_begin (rtx, rtx)
 #define HAVE_cbranchcc4 0
 #endif
 
+#ifndef HAVE_incscc
+#define HAVE_incscc 0
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
