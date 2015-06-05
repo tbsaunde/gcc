@@ -74,10 +74,6 @@
    + 1)
 #endif
 
-#ifndef HAVE_cbranchcc4
-#define HAVE_cbranchcc4 0
-#endif
-
 #define IFCVT_MULTIPLE_DUMPS 1
 
 #define NULL_BLOCK	((basic_block) NULL)
