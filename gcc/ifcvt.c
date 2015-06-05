@@ -62,9 +62,6 @@
 #include "shrink-wrap.h"
 #include "ifcvt.h"
 
-#ifndef HAVE_decscc
-#define HAVE_decscc 0
-#endif
 #ifndef MAX_CONDITIONAL_EXECUTE
 #define MAX_CONDITIONAL_EXECUTE \
   (BRANCH_COST (optimize_function_for_speed_p (cfun), false) \

@@ -1831,5 +1831,9 @@ gen_doloop_begin (rtx, rtx)
 #define HAVE_incscc 0
 #endif
 
+#ifndef HAVE_decscc
+#define HAVE_decscc 0
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
