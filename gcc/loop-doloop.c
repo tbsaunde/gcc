@@ -562,21 +562,20 @@ doloop_modify (struct loop *loop, struct niter_desc *desc,
 
   /* Some targets (eg, C4x) need to initialize special looping
      registers.  */
-#ifdef HAVE_doloop_begin
-  {
-    rtx init;
+  if (HAVE_doloop_begin)
+    {
+      rtx init;
 
-    init = gen_doloop_begin (counter_reg, doloop_seq);
-    if (init)
-      {
-	start_sequence ();
-	emit_insn (init);
-	sequence = get_insns ();
-	end_sequence ();
-	emit_insn_after (sequence, BB_END (loop_preheader_edge (loop)->src));
-      }
-  }
-#endif
+      init = gen_doloop_begin (counter_reg, doloop_seq);
+      if (init)
+	{
+	  start_sequence ();
+	  emit_insn (init);
+	  sequence = get_insns ();
+	  end_sequence ();
+	  emit_insn_after (sequence, BB_END (loop_preheader_edge (loop)->src));
+	}
+    }
 
   /* Insert the new low-overhead looping insn.  */
   emit_jump_insn_after (doloop_seq, BB_END (loop_end));

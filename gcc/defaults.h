@@ -1813,5 +1813,15 @@ gen_doloop_end (rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_doloop_begin
+#define HAVE_doloop_begin 0
+static inline rtx
+gen_doloop_begin (rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
