@@ -1844,5 +1844,10 @@ gen_doloop_begin (rtx, rtx)
 #define CODE_FOR_extzv	CODE_FOR_nothing
 #endif
 
+#ifndef HAVE_extv
+#define HAVE_extv	0
+#define CODE_FOR_extv	CODE_FOR_nothing
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
