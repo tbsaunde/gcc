@@ -1859,5 +1859,13 @@ gen_exception_receiver ()
 }
 #endif
 
+#ifndef HAVE_sync_compare_and_swapti
+#define HAVE_sync_compare_and_swapti 0
+#endif
+
+#ifndef HAVE_atomic_compare_and_swapti
+#define HAVE_atomic_compare_and_swapti 0
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
