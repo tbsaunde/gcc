@@ -571,10 +571,6 @@ cancel_changes (int num)
 #define HAVE_extv	0
 #define CODE_FOR_extv	CODE_FOR_nothing
 #endif
-#ifndef HAVE_extzv
-#define HAVE_extzv	0
-#define CODE_FOR_extzv	CODE_FOR_nothing
-#endif
 
 /* A subroutine of validate_replace_rtx_1 that tries to simplify the resulting
    rtx.  */

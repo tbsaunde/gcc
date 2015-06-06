@@ -8430,10 +8430,6 @@ expand_jump_insn (enum insn_code icode, unsigned int nops,
 #define HAVE_extv	0
 #define CODE_FOR_extv	CODE_FOR_nothing
 #endif
-#ifndef HAVE_extzv
-#define HAVE_extzv	0
-#define CODE_FOR_extzv	CODE_FOR_nothing
-#endif
 
 /* Enumerates the possible types of structure operand to an
    extraction_insn.  */
