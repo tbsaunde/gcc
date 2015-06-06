@@ -489,11 +489,7 @@ targhook_float_words_big_endian (void)
 bool
 default_float_exceptions_rounding_supported_p (void)
 {
-#ifdef HAVE_adddf3
   return HAVE_adddf3;
-#else
-  return false;
-#endif
 }
 
 /* True if the target supports decimal floating point.  */
