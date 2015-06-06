@@ -1849,5 +1849,15 @@ gen_doloop_begin (rtx, rtx)
 #define CODE_FOR_extv	CODE_FOR_nothing
 #endif
 
+#ifndef HAVE_exception_receiver
+#define HAVE_exception_receiver 0
+static inline rtx
+gen_exception_receiver ()
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */

@@ -973,12 +973,9 @@ emit_to_new_bb_before (rtx_insn *seq, rtx insn)
 void
 expand_dw2_landing_pad_for_region (eh_region region)
 {
-#ifdef HAVE_exception_receiver
   if (HAVE_exception_receiver)
     emit_insn (gen_exception_receiver ());
-  else
-#endif
-  if (HAVE_nonlocal_goto_receiver)
+  else if (HAVE_nonlocal_goto_receiver)
     emit_insn (gen_nonlocal_goto_receiver ());
   else
     { /* Nothing */ }
