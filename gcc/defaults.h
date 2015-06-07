@@ -1899,5 +1899,21 @@ gen_exception_receiver ()
 #define HAVE_atomic_compare_and_swapqi 0
 #endif
 
+#ifndef HAVE_fmasf4
+#define HAVE_fmasf4 false
+#endif
+
+#ifndef HAVE_fmadf4
+#define HAVE_fmadf4 false
+#endif
+
+#ifndef HAVE_fmaxf4
+#define HAVE_fmaxf4 false
+#endif
+
+#ifndef HAVE_fmatf4
+#define HAVE_fmatf4 false
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */
