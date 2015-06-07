@@ -584,12 +584,6 @@ cpp_atomic_builtins (cpp_reader *pfile)
 
   /* Tell source code if the compiler makes sync_compare_and_swap
      builtins available.  */
-#ifndef HAVE_sync_compare_and_swapqi
-#define HAVE_sync_compare_and_swapqi 0
-#endif
-#ifndef HAVE_atomic_compare_and_swapqi
-#define HAVE_atomic_compare_and_swapqi 0
-#endif
 
   if (HAVE_sync_compare_and_swapqi || HAVE_atomic_compare_and_swapqi)
     {
