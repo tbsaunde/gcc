@@ -621,12 +621,6 @@ cpp_atomic_builtins (cpp_reader *pfile)
       have_swap[4] = true;
     }
 
-#ifndef HAVE_sync_compare_and_swapdi
-#define HAVE_sync_compare_and_swapdi 0
-#endif
-#ifndef HAVE_atomic_compare_and_swapdi
-#define HAVE_atomic_compare_and_swapdi 0
-#endif
   if (HAVE_sync_compare_and_swapdi || HAVE_atomic_compare_and_swapdi)
     {
       cpp_define (pfile, "__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8");
