@@ -1915,5 +1915,16 @@ gen_exception_receiver ()
 #define HAVE_fmatf4 false
 #endif
 
+#ifndef HAVE_cmpmemsi
+#define HAVE_cmpmemsi false
+#define CODE_FOR_cmpmemsi CODE_FOR_nothing
+static inline rtx
+gen_cmpmemsi (rtx, rtx, rtx, rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */

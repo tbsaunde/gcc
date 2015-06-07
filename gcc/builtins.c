@@ -3927,78 +3927,68 @@ expand_builtin_memcmp (tree exp, ATTRIBUTE_UNUSED rtx target,
   /* Note: The cmpstrnsi pattern, if it exists, is not suitable for
      implementing memcmp because it will stop if it encounters two
      zero bytes.  */
-#if defined HAVE_cmpmemsi
-  {
-    rtx arg1_rtx, arg2_rtx, arg3_rtx;
-    rtx result;
-    rtx insn;
-    tree arg1 = CALL_EXPR_ARG (exp, 0);
-    tree arg2 = CALL_EXPR_ARG (exp, 1);
-    tree len = CALL_EXPR_ARG (exp, 2);
+  if (!HAVE_cmpmemsi)
+    return NULL_RTX;
 
-    unsigned int arg1_align = get_pointer_alignment (arg1) / BITS_PER_UNIT;
-    unsigned int arg2_align = get_pointer_alignment (arg2) / BITS_PER_UNIT;
-    machine_mode insn_mode;
+  rtx arg1_rtx, arg2_rtx, arg3_rtx;
+  rtx result;
+  rtx insn;
+  tree arg1 = CALL_EXPR_ARG (exp, 0);
+  tree arg2 = CALL_EXPR_ARG (exp, 1);
+  tree len = CALL_EXPR_ARG (exp, 2);
 
-    if (HAVE_cmpmemsi)
-      insn_mode = insn_data[(int) CODE_FOR_cmpmemsi].operand[0].mode;
-    else
-      return NULL_RTX;
+  unsigned int arg1_align = get_pointer_alignment (arg1) / BITS_PER_UNIT;
+  unsigned int arg2_align = get_pointer_alignment (arg2) / BITS_PER_UNIT;
 
-    /* If we don't have POINTER_TYPE, call the function.  */
-    if (arg1_align == 0 || arg2_align == 0)
-      return NULL_RTX;
+  machine_mode insn_mode = insn_data[(int) CODE_FOR_cmpmemsi].operand[0].mode;
 
-    /* Make a place to write the result of the instruction.  */
-    result = target;
-    if (! (result != 0
-	   && REG_P (result) && GET_MODE (result) == insn_mode
-	   && REGNO (result) >= FIRST_PSEUDO_REGISTER))
-      result = gen_reg_rtx (insn_mode);
+  /* If we don't have POINTER_TYPE, call the function.  */
+  if (arg1_align == 0 || arg2_align == 0)
+    return NULL_RTX;
 
-    arg1_rtx = get_memory_rtx (arg1, len);
-    arg2_rtx = get_memory_rtx (arg2, len);
-    arg3_rtx = expand_normal (fold_convert_loc (loc, sizetype, len));
+  /* Make a place to write the result of the instruction.  */
+  result = target;
+  if (! (result != 0
+	 && REG_P (result) && GET_MODE (result) == insn_mode
+	 && REGNO (result) >= FIRST_PSEUDO_REGISTER))
+    result = gen_reg_rtx (insn_mode);
 
-    /* Set MEM_SIZE as appropriate.  */
-    if (CONST_INT_P (arg3_rtx))
-      {
-	set_mem_size (arg1_rtx, INTVAL (arg3_rtx));
-	set_mem_size (arg2_rtx, INTVAL (arg3_rtx));
-      }
+  arg1_rtx = get_memory_rtx (arg1, len);
+  arg2_rtx = get_memory_rtx (arg2, len);
+  arg3_rtx = expand_normal (fold_convert_loc (loc, sizetype, len));
 
-    if (HAVE_cmpmemsi)
-      insn = gen_cmpmemsi (result, arg1_rtx, arg2_rtx, arg3_rtx,
-			   GEN_INT (MIN (arg1_align, arg2_align)));
-    else
-      gcc_unreachable ();
+  /* Set MEM_SIZE as appropriate.  */
+  if (CONST_INT_P (arg3_rtx))
+    {
+      set_mem_size (arg1_rtx, INTVAL (arg3_rtx));
+      set_mem_size (arg2_rtx, INTVAL (arg3_rtx));
+    }
 
-    if (insn)
-      emit_insn (insn);
-    else
-      emit_library_call_value (memcmp_libfunc, result, LCT_PURE,
-			       TYPE_MODE (integer_type_node), 3,
-			       XEXP (arg1_rtx, 0), Pmode,
-			       XEXP (arg2_rtx, 0), Pmode,
-			       convert_to_mode (TYPE_MODE (sizetype), arg3_rtx,
-						TYPE_UNSIGNED (sizetype)),
-			       TYPE_MODE (sizetype));
+  insn = gen_cmpmemsi (result, arg1_rtx, arg2_rtx, arg3_rtx,
+		       GEN_INT (MIN (arg1_align, arg2_align)));
 
-    /* Return the value in the proper mode for this function.  */
-    mode = TYPE_MODE (TREE_TYPE (exp));
-    if (GET_MODE (result) == mode)
-      return result;
-    else if (target != 0)
-      {
-	convert_move (target, result, 0);
-	return target;
-      }
-    else
-      return convert_to_mode (mode, result, 0);
-  }
-#endif /* HAVE_cmpmemsi.  */
+  if (insn)
+    emit_insn (insn);
+  else
+    emit_library_call_value (memcmp_libfunc, result, LCT_PURE,
+			     TYPE_MODE (integer_type_node), 3,
+			     XEXP (arg1_rtx, 0), Pmode,
+			     XEXP (arg2_rtx, 0), Pmode,
+			     convert_to_mode (TYPE_MODE (sizetype), arg3_rtx,
+					      TYPE_UNSIGNED (sizetype)),
+			     TYPE_MODE (sizetype));
 
-  return NULL_RTX;
+  /* Return the value in the proper mode for this function.  */
+  mode = TYPE_MODE (TREE_TYPE (exp));
+  if (GET_MODE (result) == mode)
+    return result;
+  else if (target != 0)
+    {
+      convert_move (target, result, 0);
+      return target;
+    }
+  else
+    return convert_to_mode (mode, result, 0);
 }
 
 /* Expand expression EXP, which is a call to the strcmp builtin.  Return NULL_RTX
