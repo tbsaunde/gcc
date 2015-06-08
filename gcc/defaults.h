@@ -1926,5 +1926,10 @@ gen_cmpmemsi (rtx, rtx, rtx, rtx, rtx)
 }
 #endif
 
+#ifndef HAVE_check_stack
+#define HAVE_check_stack false
+#define CODE_FOR_check_stack CODE_FOR_nothing
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */

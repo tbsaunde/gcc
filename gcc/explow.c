@@ -1541,7 +1541,6 @@ probe_stack_range (HOST_WIDE_INT first, rtx size)
     }
 
   /* Next see if we have an insn to check the stack.  */
-#ifdef HAVE_check_stack
   else if (HAVE_check_stack)
     {
       struct expand_operand ops[1];
@@ -1555,7 +1554,6 @@ probe_stack_range (HOST_WIDE_INT first, rtx size)
       success = maybe_expand_insn (CODE_FOR_check_stack, 1, ops);
       gcc_assert (success);
     }
-#endif
 
   /* Otherwise we have to generate explicit probes.  If we have a constant
      small number of them to generate, that's the easy case.  */
