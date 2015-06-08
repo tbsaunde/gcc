@@ -1931,5 +1931,15 @@ gen_cmpmemsi (rtx, rtx, rtx, rtx, rtx)
 #define CODE_FOR_check_stack CODE_FOR_nothing
 #endif
 
+#ifndef HAVE_stack_protect_set
+# define HAVE_stack_protect_set		0
+static inline rtx
+gen_stack_protect_set (rtx, rtx)
+{
+  gcc_unreachable ();
+  return NULL;
+}
+#endif
+
 #endif /* GCC_INSN_FLAGS_H  */
 #endif  /* ! GCC_DEFAULTS_H */

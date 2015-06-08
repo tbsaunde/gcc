@@ -5767,11 +5767,6 @@ expand_main_function (void)
 /* Expand code to initialize the stack_protect_guard.  This is invoked at
    the beginning of a function to be protected.  */
 
-#ifndef HAVE_stack_protect_set
-# define HAVE_stack_protect_set		0
-# define gen_stack_protect_set(x,y)	(gcc_unreachable (), NULL_RTX)
-#endif
-
 static void
 stack_protect_prologue (void)
 {
