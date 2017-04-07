@@ -82,6 +82,8 @@ along with GCC; see the file COPYING3.  If not see
 #define SBITMAP_ELT_BITS (HOST_BITS_PER_WIDEST_FAST_INT * 1u)
 #define SBITMAP_ELT_TYPE unsigned HOST_WIDEST_FAST_INT
 
+class auto_sbitmap;
+
 struct simple_bitmap_def
 {
   unsigned int n_bits;		/* Number of bits.  */
@@ -208,10 +210,13 @@ bmp_iter_next (sbitmap_iterator *i, unsigned *bit_no ATTRIBUTE_UNUSED)
        bmp_iter_next (&(ITER), &(BITNUM)))
 #endif
 
-inline void sbitmap_free (sbitmap map)
+inline void sbitmap_free (sbitmap &map)
 {
   free (map);
+  map = NULL;
 }
+
+void sbitmap_free (auto_sbitmap);
 
 inline void sbitmap_vector_free (sbitmap * vec)
 {
