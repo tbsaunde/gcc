@@ -129,6 +129,8 @@ along with GCC; see the file COPYING3.  If not see
 
 #include "obstack.h"
 
+   class auto_bitmap;
+
 /* Bitmap memory usage.  */
 struct bitmap_usage: public mem_usage
 {
@@ -372,8 +374,23 @@ extern hashval_t bitmap_hash (const_bitmap);
 #define BITMAP_GGC_ALLOC() bitmap_gc_alloc ()
 
 /* Do any cleanup needed on a bitmap when it is no longer used.  */
-#define BITMAP_FREE(BITMAP) \
-       ((void) (bitmap_obstack_free ((bitmap) BITMAP), (BITMAP) = (bitmap) NULL))
+inline void
+BITMAP_FREE (bitmap &b)
+{
+  bitmap_obstack_free ((bitmap) b);
+  b = NULL;
+}
+
+inline void
+BITMAP_FREE (void *&b)
+{
+  bitmap_obstack_free ((bitmap) b);
+  b = NULL;
+}
+
+/* Intentionally unimplemented to ensure it is never called with an
+   auto_bitmap argument.  */
+void BITMAP_FREE (auto_bitmap);
 
 /* Iterator for bitmaps.  */
 
