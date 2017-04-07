@@ -108,11 +108,14 @@ bitmap_bit_p (const_sbitmap map, int bitno)
 
 /* Set bit number BITNO in the sbitmap MAP.  */
 
-static inline void
+static inline bool
 bitmap_set_bit (sbitmap map, int bitno)
 {
-  map->elms[bitno / SBITMAP_ELT_BITS]
-    |= (SBITMAP_ELT_TYPE) 1 << (bitno) % SBITMAP_ELT_BITS;
+  SBITMAP_ELT_TYPE &word = map->elms[bitno / SBITMAP_ELT_BITS];
+    SBITMAP_ELT_TYPE mask = (SBITMAP_ELT_TYPE) 1 << (bitno) % SBITMAP_ELT_BITS;
+    bool ret = (word & mask) == 0;
+    word |= mask;
+    return ret;
 }
 
 /* Reset bit number BITNO in the sbitmap MAP.  */
