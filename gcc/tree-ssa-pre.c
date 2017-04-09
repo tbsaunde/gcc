@@ -817,19 +817,17 @@ bitmap_set_and (bitmap_set_t dest, bitmap_set_t orig)
 
   if (dest != orig)
     {
-      bitmap_head temp;
-      bitmap_initialize (&temp, &grand_bitmap_obstack);
+      auto_bitmap temp (&grand_bitmap_obstack);
 
       bitmap_and_into (&dest->values, &orig->values);
-      bitmap_copy (&temp, &dest->expressions);
-      EXECUTE_IF_SET_IN_BITMAP (&temp, 0, i, bi)
+      bitmap_copy (temp, &dest->expressions);
+      EXECUTE_IF_SET_IN_BITMAP (temp, 0, i, bi)
 	{
 	  pre_expr expr = expression_for_id (i);
 	  unsigned int value_id = get_expr_value_id (expr);
 	  if (!bitmap_bit_p (&dest->values, value_id))
 	    bitmap_clear_bit (&dest->expressions, i);
 	}
-      bitmap_clear (&temp);
     }
 }
 
@@ -862,18 +860,15 @@ bitmap_set_subtract_values (bitmap_set_t a, bitmap_set_t b)
 {
   unsigned int i;
   bitmap_iterator bi;
-  bitmap_head temp;
+  auto_bitmap temp (&grand_bitmap_obstack);
 
-  bitmap_initialize (&temp, &grand_bitmap_obstack);
-
-  bitmap_copy (&temp, &a->expressions);
-  EXECUTE_IF_SET_IN_BITMAP (&temp, 0, i, bi)
+  bitmap_copy (temp, &a->expressions);
+  EXECUTE_IF_SET_IN_BITMAP (temp, 0, i, bi)
     {
       pre_expr expr = expression_for_id (i);
       if (bitmap_set_contains_value (b, get_expr_value_id (expr)))
 	bitmap_remove_from_set (a, expr);
     }
-  bitmap_clear (&temp);
 }
 
 
